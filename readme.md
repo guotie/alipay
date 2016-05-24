@@ -5,7 +5,7 @@
 ## 安装
 
 ~~~ go
-go get github.com/ascoders/alipay
+go get github.com/guotie/alipay
 ~~~
 
 ## 初始化
@@ -39,28 +39,6 @@ form := alipay.Form(alipay.Options{
 
 回调分为`同步`和`异步`，支付成功后跳转至商户页面成为`同步回调`，跳转地址在`ReturnUrl`参数中配置。支付宝每隔10 10 30 ... 秒发送一次异步请求称之为`异步回调`，通知地址在`NotifyUrl`中配置。
 
-#### 同步回调（依赖beego）
-
-注意这里需要解析get请求参数，为了自动获取，请传入beego的`&this.Controller`
-
-~~~ go
-func (this *ApiController) Return() {
-	result := alipay.Return(&this.Controller)
-	if result.Status == 1 { //付款成功，处理订单
-		//处理订单
-	}
-}
-~~~
-
-参数：
-
-- Partner	// 合作者ID
-- Key       // 合作者私钥
-- ReturnUrl // 同步返回地址
-- NotifyUrl // 网站异步返回地址
-- Email     // 网站卖家邮箱地址
-
-至于为什么没有给充值金额参数，因为金额不能代表问题，例如打折或者做活动，请自行查询订单表，根据业务逻辑进行处理。
 
 #### 同步回调（无依赖）
 
@@ -75,16 +53,6 @@ func ReturnHandle(w http.ResponseWriter, r *http.Request) {
 }
 ~~~
 
-#### 异步回调（依赖beego）
-
-~~~ go
-func (this *ApiController) Notify() {
-	result := alipay.Notify(&this.Controller)
-	if result.Status == 1 { //付款成功，处理订单
-		//处理订单
-	}
-}
-~~~
 
 > 异步回调的返回参数与同步回调相同。
 
