@@ -70,7 +70,7 @@ func (this *Client) NativeReturn(r *http.Request) Result {
 		return result
 	}
 	//生成签名
-	sign := sign(param)
+	sign := sign(param, this.Key)
 	//对比签名是否相同
 	if sign == param["sign"] { //只有相同才说明该订单成功了
 		//判断订单是否已完成

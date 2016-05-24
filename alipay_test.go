@@ -4,18 +4,6 @@ import (
 	"testing"
 )
 
-func TestV1(t *testing.T) {
-	AlipayPartner = "0"
-	AlipayKey = "0"
-	WebReturnUrl = "none"
-	WebNotifyUrl = "none"
-	WebSellerEmail = "huangziyi@wokugame.com"
-	form := CreateAlipaySign("123", 99.8, "翱翔大空", "充值100")
-	if form == "" {
-		t.Error("v1错误")
-	}
-}
-
 func TestNew(t *testing.T) {
 	alipay := Client{
 		Partner:   "", // 合作者ID
